@@ -92,6 +92,7 @@ export default function SignIn(props) {
         }
         response.json().then((json) => {
           localStorage.setItem("token", json.token);
+          localStorage.setItem("username", json.user.username);
           props.history.push({
             pathname: "/home",
             state: {

@@ -11,6 +11,6 @@ pip install --upgrade pip
 pip install wheel
 pip install -r requirements.txt
 cd myface
-python manage.py migrate
-Python manage.py runserver
+python3 manage.py migrate
+Python3 manage.py runserver
 
