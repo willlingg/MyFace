@@ -7,9 +7,9 @@ fi
 
 source venv/bin/activate
 
-pip install --upgrade pip
-pip install wheel
-pip install -r requirements.txt
+pip3 install -r requirements.txt
+pip3 install --upgrade pip
+pip3 install wheel
 cd myface
 python3 manage.py migrate
 Python3 manage.py runserver
