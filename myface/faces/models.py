@@ -5,7 +5,7 @@ import os
 
 
 def get_image_path(instance, filename):
-    return os.path.join('photos', str(instance.id), filename)
+    return os.path.join( str(instance.id), filename)
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

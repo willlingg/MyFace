@@ -18,7 +18,8 @@ from django.urls import path, include
 from faces import views
 from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,3 +28,6 @@ urlpatterns = [
     url(r'^api/post/$', views.post_list),
     url(r'^api/post/(?P<pk>[0-9]+)$', views.post_detail),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
