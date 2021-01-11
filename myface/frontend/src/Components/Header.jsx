@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from "react-router-dom";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MyFaceNoText from "../Images/MyFaceNoText.png";
@@ -26,9 +26,6 @@ const StyledButton = withStyles({
 })(Button);
 
 const useStyles = makeStyles((theme) => ({
-  avatar: {
-    marginRight: "10px",
-  },
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
     marginTop: "20px",
@@ -75,8 +72,15 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     width: "200px",
   },
-  icon: {
+  leftIcon: {
     marginRight: "20px",
+  },
+  rightIcon: {
+    marginLeft: "20px",
+  },
+  profile: {
+    height: "50px",
+    border: "solid 1px gray",
   },
 }));
 
@@ -115,36 +119,33 @@ export default function Header(props) {
         {localStorage.username && (
           <>
             <img className={classes.logo} src={MyFaceNoText} alt="" />
-            <div className={classes.buttonGroup}>
-              <div>
-                <Button
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                >
-                  <AccountCircleIcon className={classes.avatar} />
-                  Welcome {localStorage.username}
-                </Button>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                  className={classes.menu}
-                >
-                  <MenuItem onClick={handleClose}>
-                    <AddCircleIcon className={classes.icon} />
-                    Create Post
-                  </MenuItem>
-                  {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
-                  <MenuItem onClick={() => logout()}>
-                    <ExitToAppIcon className={classes.icon} />
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </div>
-            </div>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+              className={classes.profile}
+            >
+              <AccountCircleIcon className={classes.leftIcon} />
+              {localStorage.username}
+              <ArrowDropDownIcon className={classes.rightIcon} />
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              className={classes.menu}
+            >
+              <MenuItem onClick={handleClose} className={classes.menu}>
+                <AddCircleIcon className={classes.leftIcon} />
+                Create Post
+              </MenuItem>
+              <MenuItem onClick={() => logout()}>
+                <ExitToAppIcon className={classes.leftIcon} />
+                Logout
+              </MenuItem>
+            </Menu>
           </>
         )}
         {!localStorage.username && (
