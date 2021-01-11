@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginRight: "40px",
   },
   button: {
     width: "100px",
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     align: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
   menu: {
     width: "200px",
@@ -79,8 +81,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "20px",
   },
   profile: {
-    height: "50px",
+    height: "40px",
     border: "solid 1px gray",
+    fontSize: "90%",
+    marginRight: "20px",
   },
 }));
 
@@ -119,33 +123,35 @@ export default function Header(props) {
         {localStorage.username && (
           <>
             <img className={classes.logo} src={MyFaceNoText} alt="" />
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-              className={classes.profile}
-            >
-              <AccountCircleIcon className={classes.leftIcon} />
-              {localStorage.username}
-              <ArrowDropDownIcon className={classes.rightIcon} />
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              className={classes.menu}
-            >
-              <MenuItem onClick={handleClose} className={classes.menu}>
-                <AddCircleIcon className={classes.leftIcon} />
-                Create Post
-              </MenuItem>
-              <MenuItem onClick={() => logout()}>
-                <ExitToAppIcon className={classes.leftIcon} />
-                Logout
-              </MenuItem>
-            </Menu>
+            <div className={classes.leftHeaderContainer}>
+              <Button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+                className={classes.profile}
+              >
+                <AccountCircleIcon className={classes.leftIcon} />
+                {localStorage.username}
+                <ArrowDropDownIcon className={classes.rightIcon} />
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                className={classes.menu}
+              >
+                <MenuItem onClick={handleClose} className={classes.menu}>
+                  <AddCircleIcon className={classes.leftIcon} />
+                  Create Post
+                </MenuItem>
+                <MenuItem onClick={() => logout()}>
+                  <ExitToAppIcon className={classes.leftIcon} />
+                  Logout
+                </MenuItem>
+              </Menu>
+            </div>
           </>
         )}
         {!localStorage.username && (
