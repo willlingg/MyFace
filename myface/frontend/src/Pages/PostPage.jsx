@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+
 import {
   Main,
   Header,
@@ -12,8 +14,10 @@ import {
 const PostPage = () => {
   return (
     <div>
-      <Header />
-      <div>these are the posts</div>
+      <Container maxWidth="lg">
+        <Header />
+        <div>these are the posts</div>
+      </Container>
     </div>
   );
 };
