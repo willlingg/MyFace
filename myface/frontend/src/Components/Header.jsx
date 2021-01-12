@@ -4,10 +4,11 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MyFaceNoText from "../Images/MyFaceNoText.png";
@@ -86,6 +87,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "90%",
     marginRight: "20px",
   },
+  cleanStyling: {
+    color: "black",
+    textDecoration: "none",
+  },
 }));
 
 export default function Header(props) {
@@ -112,13 +117,13 @@ export default function Header(props) {
     window.location.reload();
   };
 
-  console.log(localStorage.token);
-
   return (
     <React.Fragment>
       <div className={classes.toolbar}>
         <div className={classes.leftHeaderContainer}>
-          <h2 className={classes.myFace}>MyFace</h2>
+          <a href="/home" className={classes.cleanStyling}>
+            <h2 className={classes.myFace}>MyFace</h2>
+          </a>
         </div>
         {localStorage.username && (
           <>
@@ -145,6 +150,10 @@ export default function Header(props) {
                 <MenuItem onClick={handleClose} className={classes.menu}>
                   <AddCircleIcon className={classes.leftIcon} />
                   Create Post
+                </MenuItem>
+                <MenuItem onClick={() => clickLink("/posts")}>
+                  <MenuBookIcon className={classes.leftIcon} />
+                  Your Posts
                 </MenuItem>
                 <MenuItem onClick={() => logout()}>
                   <ExitToAppIcon className={classes.leftIcon} />

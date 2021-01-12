@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -10,6 +9,7 @@ import PostList from "./Components/PostList";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Blog from "./Pages/Home";
+import PostPage from "./Pages/PostPage";
 
 function App() {
   return (
@@ -19,9 +19,7 @@ function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/home" component={Blog} />
-        {/* <Route exact path="/portfolio" component={Portfolio} />
-        <Route exact path="/news" component={NewsPage} />
-        <Route exact path="/news/:stock" component={NewsPage} /> */}
+        <Route exact path="/posts" component={PostPage} />
       </Switch>
     </Router>
   );

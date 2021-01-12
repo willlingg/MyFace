@@ -44,9 +44,9 @@ def post_list(request):
 def post_detail(request, pk):
     """
     Retrieve, update or delete a post by id/pk.
-    """
+    """    
     try:
-        post = Post.objects.get(pk=pk)
+        post = Post.objects.get(pk=pk)        
     except Post.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -64,3 +64,35 @@ def post_detail(request, pk):
     elif request.method == 'DELETE':
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def user_post(request):
+    """
+    Retrieve, update or delete a post by username
+    """    
+    try:
+        posts = Post.objects.filter(author=request.user).order_by('-created_date')       
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':               
+        data = []
+        nextPage = 1
+        previousPage = 1        
+        page = request.GET.get('page', 1)
+        paginator = Paginator(posts, 10)
+
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        
+        serializer = PostSeralizer(data, context={'request': request}, many=True)
+        if data.has_next():
+            nextPage = data.next_page_number()
+        if data.has_previous():
+            previousPage = data.previous_page_number()
+
+        return Response({'data': serializer.data , 'count': paginator.count, 'numpages' : paginator.num_pages, 'nextlink': '/api/post/?page=' + str(nextPage), 'prevlink': '/api/post/?page=' + str(previousPage)})     

@@ -25,8 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('token-auth/', obtain_jwt_token),
     path('core/', include('core.urls')),
-    url(r'^api/post/$', views.post_list),
-    url(r'^api/post/(?P<pk>[0-9]+)$', views.post_detail),
+    path('post/',include('faces.urls')),
+    # url(r'^api/post/$', views.post_list),
+    # url(r'^api/post/(?P<pk>[0-9]+)$', views.post_detail),
+    # url(r'api/post/', views.user_post),
 ]
 
 if settings.DEBUG:
