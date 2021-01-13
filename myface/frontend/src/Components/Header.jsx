@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import PostModal from "./PostModal";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import { useHistory, Link } from "react-router-dom";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -96,6 +96,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+    setAnchorEl(null);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -147,7 +157,7 @@ export default function Header(props) {
                 onClose={handleClose}
                 className={classes.menu}
               >
-                <MenuItem onClick={handleClose} className={classes.menu}>
+                <MenuItem onClick={handleModalOpen} className={classes.menu}>
                   <AddCircleIcon className={classes.leftIcon} />
                   Create Post
                 </MenuItem>
@@ -193,6 +203,7 @@ export default function Header(props) {
         variant="dense"
         className={classes.toolbarSecondary}
       ></Toolbar>
+      <PostModal handleModalClose={handleModalClose} modalOpen={modalOpen} />
     </React.Fragment>
   );
 }
