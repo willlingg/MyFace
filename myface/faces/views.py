@@ -33,7 +33,9 @@ def post_list(request):
         return Response({'data': serializer.data , 'count': paginator.count, 'numpages' : paginator.num_pages, 'nextlink': '/api/post/?page=' + str(nextPage), 'prevlink': '/api/post/?page=' + str(previousPage)})
 
     elif request.method == 'POST':
-        serializer = PostSeralizer(data=request.data)
+        request.data['author'] = request.user.id        
+        serializer = PostSeralizer(data=request.data, context={'request': request})        
+        print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
